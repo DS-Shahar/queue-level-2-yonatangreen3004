@@ -167,4 +167,82 @@ public class Main {
 
         return q2;
     }
+
+
+
+    public static Queue<Integer> copyQueue(Queue<Integer> q) {
+		Queue<Integer> copy = new Queue<>();
+		Queue<Integer> temp = new Queue<>();
+
+		while (!q.isEmpty()) {
+			int x = q.remove();
+			copy.insert(x);
+			temp.insert(x);
+		}
+
+		while (!temp.isEmpty()) {
+			q.insert(temp.remove());
+		}
+
+		return copy;
+	}
+
+	public static int max(Queue<Integer>q) {
+		Queue<Integer> q1 = copyQueue(q);
+		int max=0;
+		while(!q1.isEmpty()) {
+			int a=q1.remove();
+			if(a>max) {
+				max=a;
+			}
+		}
+		return max;
+	}
+	
+	public static int numDig(int x){
+	    int count=0;
+	    while(x!=0){
+	       x=x/10;
+	       count++;
+	    }
+	    return count;
+	}
+	
+	public static int location(int num, int x){
+	    for(int i=0; i < x; i++){
+	        num = num/10;
+	    }
+	    return num % 10;
+	}
+    
+    public static Queue<Integer> sort(Queue<Integer> q) 
+    {
+        Queue<Integer>[]a = new Queue [10];
+        for (int i = 0; i< 10; i++){
+            a[i] = new Queue<Integer>();
+        }
+            
+        int x = numDig(max(q));
+        int num;
+        
+        for (int i = 0; i< x;i++)
+        {
+            while (!q.isEmpty())
+	        {
+	            num = q.remove();
+	            a[location(num,i)].insert(num);
+	        }
+	        
+	        for (int j = 0; j< 10;j++)
+            {
+                while (!a[j].isEmpty())
+	            {
+	                q.insert(a[j].remove());
+	            }
+            }
+        }
+            
+        return q;    
+        
+    }
 }
