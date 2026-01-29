@@ -245,4 +245,26 @@ public class Main {
         return q;    
         
     }
+
+	public static int evenLeaf(BinNode<Integer> node) {
+	if (node == null)
+		return true;
+
+	if (!node.hasLeft()&&!node.hasRight()&&node%2!=0)
+		return false;
+	else{
+	    return evenLeaf(node.getLeft())&&evenLeaf(node.getRight());
+	}
+
+	public static boolean hasLeft(BinNode<Integer> node) {
+	if (node == null)
+		return true;
+
+	if (node.hasRight()&&node.hasLeft())
+		return false;
+	else{
+	  return hasLeft(node.getLeft())&&evenLeaf(node.getRight());
+	}
+}
+}
 }
